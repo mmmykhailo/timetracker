@@ -12,6 +12,7 @@ export default function Home() {
   const [selectedDateReport, setSelectedDateReport] = useState("");
   const [selectedDateActivities, setSelectedDateActivities] =
     useState<Array<ReportActivity> | null>([]);
+  const [isChange, setIsChange] = useState(false);
   const [trackTimeModalActivity, setTrackTimeModalActivity] = useState<
     ReportActivity | "new"
   >(null);
@@ -44,10 +45,12 @@ export default function Home() {
   useEffect(() => {
     if (
       JSON.stringify(selectedDateActivities) !==
-      JSON.stringify(parseReport(selectedDateReport))
+        JSON.stringify(parseReport(selectedDateReport)) &&
+      isChange
     ) {
       const serializedReport = serializeReport(selectedDateActivities);
       saveSerializedReport(serializedReport);
+      setIsChange(false);
     }
   }, [selectedDateActivities]);
 
@@ -57,6 +60,7 @@ export default function Home() {
   };
 
   const submitActivity = (activity: ReportActivity) => {
+    setIsChange(true);
     if (activity.id === null) {
       setSelectedDateActivities((activities) => [
         ...activities,
