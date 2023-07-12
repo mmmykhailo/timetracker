@@ -112,6 +112,7 @@ export default function Home() {
             <div className="px-4 py-5 bg-white shadow sm:rounded-lg sm:px-6">
               <ManualInputForm
                 onSave={setSelectedDateReport}
+                setShouldAutosave={setShouldAutosave}
                 selectedDateReport={selectedDateReport}
               />
             </div>
